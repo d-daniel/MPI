@@ -16,6 +16,7 @@ int main(int argc, char** argv) {
   FILE* fp;
   char fname[64];
   char key[56]; // 448 bits key
+
   uint64_t* p_array = NULL;
   uint64_t* ans = NULL;
 
@@ -49,23 +50,15 @@ int main(int argc, char** argv) {
   }
 
   t0 = walltime();
+
   fp = fopen(fname, "r");
   fseek(fp, 0L, SEEK_END);
   fsize = ftell(fp);
   rewind(fp);
-  N = (fsize/8) + ((fsize/8) == 0 ? 0 : 1);
-
-  if (rank == 0) {
-    printf ("File size: %ld bytes split into %ld blocks of 64 bits\n", fsize, N);
-    p_array = (uint64_t*)malloc(N*sizeof(uint64_t));
-    fread(p_array, 8, N, fp);
-  }
-
-  fclose(fp);
-
-  BLOWFISH_CTX ctx;
-  Blowfish_Init(&ctx, (unsigned char*)key, strlen(key));
-
+  
+  N = (fsize/8) + ((fsize % 8) == 0 ? 0 : 1);
+  if (rank ==0) printf ("File size: %ld bytes split into %ld blocks of 64 bits\n", fsize, N);
+  
   int* counts = (int*)malloc(size*sizeof(int));
   int* displs = (int*)malloc(size*sizeof(int));
 
@@ -82,11 +75,24 @@ int main(int argc, char** argv) {
     sum += counts[i];
   }
 
+  // Have rank 0 read the whole file to have the answer
+  if (rank == 0) {
+    p_array = (uint64_t*)malloc(N*sizeof(uint64_t));
+    fread(p_array, 8, N, fp);
+    rewind(fp);
+  }
+
   uint64_t* buff = (uint64_t*)malloc(counts[rank]*sizeof(uint64_t));
+  // Each rank reads a chunk of the file
+  fseek(fp, displs[rank], SEEK_SET);
+  fread(buff, 8, counts[rank], fp);
+  fclose(fp);
+  BLOWFISH_CTX ctx;
+  Blowfish_Init(&ctx, (unsigned char*)key, strlen(key));
 
   t1 = walltime();
-  
-  MPI_Scatterv(p_array, counts, displs, MPI_UINT64_T, buff, counts[rank], MPI_UINT64_T, 0, MPI_COMM_WORLD);
+
+  // MPI_Scatterv(p_array, counts, displs, MPI_UINT64_T, buff, counts[rank], MPI_UINT64_T, 0, MPI_COMM_WORLD);
 
   for (i = 0; i < counts[rank]; i++) {
     lhs = (uint32_t)((buff[i] & 0xFFFFFFFF00000000LL) >> 32);
@@ -103,8 +109,10 @@ int main(int argc, char** argv) {
   t2 = walltime();
 
   if (rank == 0) {
-    if (memcmp(p_array, ans, N) == 0) printf("PASSED\n");
-    else printf("FAILED\n");
+    if (memcmp(p_array, ans, N) == 0)
+      printf("PASSED\n");
+    else
+      printf("FAILED\n");
   }
 
   free(p_array);
@@ -121,7 +129,7 @@ int main(int argc, char** argv) {
       printf("  Computation:    %fs\n", t2 - t1);
       printf("  Total:          %fs\n", t3 - t0);
   }
-  
+
   MPI_Finalize();
   return 0;
 }
