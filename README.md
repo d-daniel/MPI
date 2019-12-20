@@ -1,9 +1,9 @@
 # MPI
 Some MPI Samples
 
-Blowfish results on VM cluster:
+### Blowfish results on VM cluster:
 
-### SERIAL VERSION 5MB FILE
+__SERIAL VERSION 5MB FILE__
 [prun] Master compute host = compnode0
 [prun] Resource manager = slurm
 [prun] Launch cmd = mpirun ./blowfish -f file.txt -k bioinformatics (family=openmpi3)
@@ -14,7 +14,7 @@ PASSED
   Computation:    0.063190s
   Total:          0.102423s
 
-### SERIAL VERSION 50MB FILE
+__SERIAL VERSION 50MB FILE__
 [prun] Master compute host = compnode0
 [prun] Resource manager = slurm
 [prun] Launch cmd = mpirun ./blowfish -f book.txt -k bioinformatics (family=openmpi3)
@@ -25,7 +25,7 @@ PASSED
   Computation:    5.905069s
   Total:          7.737537s
 
-### SERIAL VERSION 1GB FILE
+__SERIAL VERSION 1GB FILE__
 [prun] Master compute host = compnode0
 [prun] Resource manager = slurm
 [prun] Launch cmd = mpirun ./blowfish -f tome.txt -k bioinformatics (family=openmpi3)
@@ -36,7 +36,7 @@ PASSED
   Computation:    11.841680s
   Total:          15.692811s
 
-### MPI VERSION 5MB -n 8 -N 2
+__MPI VERSION 5MB -n 8 -N 2__
 [prun] Master compute host = compnode0
 [prun] Resource manager = slurm
 [prun] Launch cmd = mpirun ./blowfish -f file.txt -k bioinformatics (family=openmpi3)
@@ -47,7 +47,7 @@ PASSED
   Computation:    0.027808s
   Total:          0.048894s
 
-### MPI VERSION 50MB -n 8 -N 2
+__MPI VERSION 50MB -n 8 -N 2__
 [prun] Master compute host = compnode0
 [prun] Resource manager = slurm
 [prun] Launch cmd = mpirun ./blowfish -f book.txt -k bioinformatics (family=openmpi3)
@@ -58,7 +58,7 @@ PASSED
   Computation:    1.543340s
   Total:          3.118335s
 
-### MPI VERSION 1GB -n 8 -N 2
+__MPI VERSION 1GB -n 8 -N 2__
 [prun] Master compute host = compnode0
 [prun] Resource manager = slurm
 [prun] Launch cmd = mpirun ./blowfish -f tome.txt -k bioinformatics (family=openmpi3)
