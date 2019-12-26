@@ -171,3 +171,33 @@ PASSED
   Computation:    4.213191s
   Total:          5.142450s
 ```
+__MPI+OpenMP 5MB -n 4 -N 4 -c 16__
+```sh
+File size: 5572792 bytes split into 696599 blocks of 64 bits
+Executing with 16 OpenMP threads and 4 MPI ranks
+PASSED
+  Execution times:
+  Initialization: 0.007641s
+  Computation:    0.008256s
+  Total:          0.015984s
+```
+ __MPI+OpenMP 500MB -n 4 -N 4 -c 16__
+```sh
+File size: 500563104 bytes split into 62570388 blocks of 64 bits
+Executing with 16 OpenMP threads and 4 MPI ranks
+PASSED
+  Execution times:
+  Initialization: 0.489728s
+  Computation:    0.393478s
+  Total:          0.893121s
+```
+__MPI+OpenMP 1GB -n 4 -N 4 -c 16__
+```sh
+File size: 1001126208 bytes split into 125140776 blocks of 64 bits
+Executing with 16 OpenMP threads and 4 MPI ranks
+PASSED
+  Execution times:
+  Initialization: 0.982534s
+  Computation:    0.747577s
+  Total:          1.749635s
+``` 
