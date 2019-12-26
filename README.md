@@ -88,7 +88,7 @@ PASSED
   Computation:    0.043846s
   Total:          0.065160s
   ```
-  __MPI+OpenMP 500MB -n 4 -N 4 -c 4__
+ __MPI+OpenMP 500MB -n 4 -N 4 -c 4__
 ```sh
 [prun] Master compute host = compnode0
 [prun] Resource manager = slurm
@@ -143,4 +143,31 @@ PASSED
   Initialization: 1.124930s
   Computation:    15.953582s
   Total:          17.101078s
+```
+__MPI 5MB -n 4 -N 4__
+```sh
+File size: 5572792 bytes split into 696599 blocks of 64 bits
+PASSED
+  Execution times:
+  Initialization: 0.008165s
+  Computation:    0.026341s
+  Total:          0.035039s
+```
+__MPI 500MB -n 4 -N 4__
+```sh
+File size: 500563104 bytes split into 62570388 blocks of 64 bits
+PASSED
+  Execution times:
+  Initialization: 0.439301s
+  Computation:    2.107405s
+  Total:          2.570089s__MPI 1GB -n 4 -N 4__
+```
+__MPI 1GB -n 4 -N 4__
+```sh
+File size: 1001126208 bytes split into 125140776 blocks of 64 bits
+PASSED
+  Execution times:
+  Initialization: 0.882131s
+  Computation:    4.213191s
+  Total:          5.142450s
 ```
