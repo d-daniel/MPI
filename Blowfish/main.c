@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <mpi.h>
+#include <omp.h>
 
 #include "blowfish.h"
 #include "walltime.h"
@@ -57,7 +58,12 @@ int main(int argc, char** argv) {
   rewind(fp);
   
   N = (fsize/8) + ((fsize % 8) == 0 ? 0 : 1);
-  if (rank ==0) printf ("File size: %ld bytes split into %ld blocks of 64 bits\n", fsize, N);
+  if (rank ==0) {
+    printf ("File size: %ld bytes split into %ld blocks of 64 bits\n", fsize, N);
+#ifdef _OPENMP
+    printf("Executing with %d OpenMP threads and %d MPI ranks\n", omp_get_num_procs(), size);
+#endif
+  }
   
   int* counts = (int*)malloc(size*sizeof(int));
   int* displs = (int*)malloc(size*sizeof(int));
@@ -94,6 +100,9 @@ int main(int argc, char** argv) {
 
   // MPI_Scatterv(p_array, counts, displs, MPI_UINT64_T, buff, counts[rank], MPI_UINT64_T, 0, MPI_COMM_WORLD);
 
+#ifdef _OPENMP
+  #pragma omp parallel for private(lhs, rhs) 
+#endif
   for (i = 0; i < counts[rank]; i++) {
     lhs = (uint32_t)((buff[i] & 0xFFFFFFFF00000000LL) >> 32);
     rhs = (uint32_t) (buff[i] & 0x00000000FFFFFFFFLL);
