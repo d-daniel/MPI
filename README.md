@@ -63,7 +63,7 @@ PASSED
   Computation:    2.313624s
   Total:          4.065768s
 ```
-__MPI 1GB -n 4 -N 2__
+__MPI 1GB -n 4 -N 4__
 ```sh
 [prun] Master compute host = compnode0
 [prun] Resource manager = slurm
@@ -101,7 +101,7 @@ PASSED
   Computation:    1.243591s
   Total:          3.121033s
   ```
-__MPI+OpenMP 50MB -n 4 -N 4 -c 4__
+__MPI+OpenMP 1GB -n 4 -N 4 -c 4__
 ```sh
 [prun] Master compute host = compnode0
 [prun] Resource manager = slurm
