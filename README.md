@@ -114,3 +114,33 @@ PASSED
   Computation:    2.585831s
   Total:          7.198708s
 ``` 
+
+### Blowfish results on Nucleus:
+
+__SERIAL 5MB FILE__
+```sh
+File size: 5572792 bytes split into 696599 blocks of 64 bits
+PASSED
+  Execution times:
+  Initialization: 0.056338s
+  Computation:    0.088864s
+  Total:          0.145710s
+```
+__SERIAL 500MB FILE__
+```sh
+File size: 500563104 bytes split into 62570388 blocks of 64 bits
+PASSED
+  Execution times:
+  Initialization: 0.548407s
+  Computation:    7.980852s
+  Total:          8.540638s
+```
+__SERIAL 1GB FILE__
+```sh
+File size: 1001126208 bytes split into 125140776 blocks of 64 bits
+PASSED
+  Execution times:
+  Initialization: 1.124930s
+  Computation:    15.953582s
+  Total:          17.101078s
+```
