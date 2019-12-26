@@ -15,7 +15,7 @@ PASSED
   Computation:    0.063190s
   Total:          0.102423s
 ```
-__SERIAL 50MB FILE__
+__SERIAL 500MB FILE__
 ```sh
 [prun] Master compute host = compnode0
 [prun] Resource manager = slurm
@@ -51,7 +51,7 @@ PASSED
   Computation:    0.029338s
   Total:          0.056504s
 ```
-__MPI 50MB -n 4 -N 4__
+__MPI 500MB -n 4 -N 4__
 ```sh
 [prun] Master compute host = compnode0
 [prun] Resource manager = slurm
@@ -88,7 +88,7 @@ PASSED
   Computation:    0.043846s
   Total:          0.065160s
   ```
-  __MPI+OpenMP 50MB -n 4 -N 4 -c 4__
+  __MPI+OpenMP 500MB -n 4 -N 4 -c 4__
 ```sh
 [prun] Master compute host = compnode0
 [prun] Resource manager = slurm
