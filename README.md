@@ -149,27 +149,27 @@ __MPI 5MB -n 4 -N 4__
 File size: 5572792 bytes split into 696599 blocks of 64 bits
 PASSED
   Execution times:
-  Initialization: 0.008165s
-  Computation:    0.026341s
-  Total:          0.035039s
+  Initialization: 0.068407s
+  Computation:    0.026076s
+  Total:          0.094554s
 ```
 __MPI 500MB -n 4 -N 4__
 ```sh
 File size: 500563104 bytes split into 62570388 blocks of 64 bits
 PASSED
   Execution times:
-  Initialization: 0.439301s
-  Computation:    2.107405s
-  Total:          2.570089s__MPI 1GB -n 4 -N 4__
+  Initialization: 3.168492s
+  Computation:    2.279104s
+  Total:          5.491613s
 ```
 __MPI 1GB -n 4 -N 4__
 ```sh
 File size: 1001126208 bytes split into 125140776 blocks of 64 bits
 PASSED
   Execution times:
-  Initialization: 0.882131s
-  Computation:    4.213191s
-  Total:          5.142450s
+  Initialization: 6.170346s
+  Computation:    4.556166s
+  Total:          10.823304s
 ```
 __MPI+OpenMP 5MB -n 4 -N 4 -c 16__
 ```sh
