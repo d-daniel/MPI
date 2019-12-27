@@ -65,6 +65,7 @@ int main(int argc, char** argv) {
 #endif
   }
   
+  // TODO: only rank 0 needs to know counts and displs... 
   int* counts = (int*)malloc(size*sizeof(int));
   int* displs = (int*)malloc(size*sizeof(int));
 
