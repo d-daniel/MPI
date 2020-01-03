@@ -24,7 +24,7 @@ int main(int argc, char **argv) {
 
   int N = 1024; // default grid size
   for (i = 0; i < argc; i++) {
-    if ((strcmp(argv[i], "-e") == 0) || (strcmp(argv[i], "-edge") == 0)) {
+    if ((strcmp(argv[i], "-n") == 0) || (strcmp(argv[i], "-N") == 0)) {
       N = 1 << atoi(argv[++i]);
     }
   }
