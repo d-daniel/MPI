@@ -3,6 +3,11 @@ Some MPI Samples
 
 ### Blowfish results on VM cluster:
 
+Brief description of how the benchmarks were performed:
+- Initialization: time to read the input file, calculate the offsets for splitting the file into chunks of data (if needed), allocate memory and initialize blowfish parameters;
+- Computation: time to encrypt, decrypt, write data to memory and send data to rank 0 (gather);
+- Total: total application time including memory deallocation and verification of correctness. 
+
 __SERIAL 5MB FILE__
 ```sh
 [prun] Master compute host = compnode0
@@ -39,6 +44,8 @@ PASSED
   Computation:    11.841680s
   Total:          15.692811s
 ```
+In the serial version, the compute time is dominant for all problem sizes. The time of verification is negligible.
+
 __MPI 5MB -n 4 -N 4__
 ```sh
 [prun] Master compute host = compnode0
@@ -75,6 +82,8 @@ PASSED
   Computation:    4.800958s
   Total:          8.211742s
 ```
+With 4 MPI ranks (4 nodes) and a single thread per node, there's some speedup, although not equal to the number of nodes. The initialization times remain the same as in the serial version because this code has rank 0 read the whole file for verification. There is no message passing in the initialization phase (no scatter). Computation time is not as dominant as in the serial version.
+
 __MPI+OpenMP 5MB -n 4 -N 4 -c 4__
 ```sh
 [prun] Master compute host = compnode0
@@ -114,6 +123,7 @@ PASSED
   Computation:    2.585831s
   Total:          7.198708s
 ``` 
+With 4 MPI ranks (4 nodes) and 4 threads per node, the achieved speedup in relation to the serial version is good - but not great - considering that this is a hybrid code. Results make clear that this is an IO-bound application. Initialization times are now dominant.
 
 ### Blowfish results on Nucleus:
 
@@ -144,6 +154,8 @@ PASSED
   Computation:    15.953582s
   Total:          17.101078s
 ```
+Note the decrease in initialization times because of the parallel file system in nucleus (the 5MB is an exception). Compute times are worse, tough.
+
 __MPI 5MB -n 4 -N 4__
 ```sh
 File size: 5572792 bytes split into 696599 blocks of 64 bits
@@ -171,6 +183,8 @@ PASSED
   Computation:    4.377276s
   Total:          5.342119s
 ```
+With 4 MPI ranks (4 nodes) and a single thread per node, good speedup is achieved, very similar to the number of nodes. Those are better values than those of the VM cluster, due to Infiniband. The initialization times remain the same as in the serial version because this code has rank 0 read the whole file for verification.
+
 __MPI+OpenMP 5MB -n 4 -N 4 -c 16__
 ```sh
 File size: 5572792 bytes split into 696599 blocks of 64 bits
@@ -201,3 +215,4 @@ PASSED
   Computation:    0.747577s
   Total:          1.749635s
 ``` 
+With 4 MPI ranks (4 nodes) and 16 threads per node, there's some more speedup, although not ideal. Once again, results demonstrate that this is an IO-bound application. Initialization times are now dominant.
